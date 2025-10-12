@@ -1,4 +1,5 @@
 #include "server.hpp"
+#include "response.hpp"
 #include <cstdlib>
 #include <cstring>
 #include <string>

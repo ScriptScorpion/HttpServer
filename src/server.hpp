@@ -4,7 +4,6 @@
 #include <arpa/inet.h>
 #include <string>
 #include <vector>
-#include "response.hpp"
 class Server {
      private:
          sockaddr_in Server_addr {};

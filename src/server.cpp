@@ -72,19 +72,19 @@ void Server::Info_Sender(const int CL_sock, char *buff) {
     }
     std::string Response;
     Response += "HTTP/" + Version + " " + std::to_string(static_cast<int>(HttpStatusCode::Ok)) + "\r\n";
-    Response += "Content-Type: text/html\r\n";
-    Response += "Content-Length: 184\r\n\r\n";
+    Response += "Content-Type: text/html\n";
+    Response += "Content-Length: 173\n\n";
 
-    Response += "<!DOCTYPE html>\r\n";
-    Response += "<html lang=\"en\">\r\n";
-    Response += "<head>\r\n";
-    Response += "<meta charset=\"utf-8\">\r\n";
-    Response += "<title>local site</title>\r\n";
-    Response += "</head>\r\n";
-    Response += "<body>\r\n";
-    Response += "<h1 style=\"text-align:center;\">Hello Stranger!</h1>\r\n";
-    Response += "</body>\r\n";
-    Response += "</html>\r\n\r\n";
+    Response += "<!DOCTYPE html>\n";
+    Response += "<html lang=\"en\">\n";
+    Response += "<head>\n";
+    Response += "<meta charset=\"utf-8\">\n";
+    Response += "<title>local site</title>\n";
+    Response += "</head>\n";
+    Response += "<body>\n";
+    Response += "<h1 style=\"text-align:center;\">Hello Stranger!</h1>\n";
+    Response += "</body>\n";
+    Response += "</html>\n\n";
     std::cout << Response << std::endl;
     send(CL_sock, Response.c_str(), Response.size(), 0);
 }

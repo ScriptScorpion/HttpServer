@@ -48,10 +48,9 @@ bool Server::Start(const int port) {
             Info_Sender(CL_sock, buff);
             memset(buff, 0, sizeof(buff));
             close(CL_sock);
-            close(SV_sock);
-            break;
         }
-    } 
+    }
+    close(SV_sock);
     return true;
 }
 void Server::Info_Sender(const int CL_sock, char *buff) {
@@ -71,7 +70,7 @@ void Server::Info_Sender(const int CL_sock, char *buff) {
         }
     }
     std::string Response;
-    Response += "HTTP/" + Version + " " + std::to_string(static_cast<int>(HttpStatusCode::Ok)) + "\r\n";
+    Response += "HTTP/" + Version + " " + std::to_string(static_cast<int>(HttpStatusCode::Ok)) + "\n";
     Response += "Content-Type: text/html\n";
     Response += "Content-Length: 173\n\n";
 

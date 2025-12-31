@@ -84,6 +84,5 @@ void Server::Info_Sender(const int CL_sock, char *buff) {
     Response += "<h1 style=\"text-align:center;\">Hello Stranger!</h1>\n";
     Response += "</body>\n";
     Response += "</html>\n\n";
-    std::cout << Response << std::endl;
     send(CL_sock, Response.c_str(), Response.size(), 0);
 }

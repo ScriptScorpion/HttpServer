@@ -1,5 +1,4 @@
 #include "server.hpp"
-#include "response.hpp"
 #include <cstdlib>
 #include <cstring>
 #include <string>
@@ -17,7 +16,6 @@ bool Server::Start(const int port) {
     if (SV_sock < 0) {
         return false;
     }
-    cl_SV = SV_sock;
     memset(&Server_addr, 0, sizeof(Server_addr));
     Server_addr.sin_family = AF_INET;
     Server_addr.sin_addr.s_addr = INADDR_ANY;
@@ -40,7 +38,6 @@ bool Server::Start(const int port) {
         if (CL_sock < 0) {
             continue;
         }
-        cl_CL.push_back(CL_sock);
         int received_bytes = recv(CL_sock, buff, sizeof(buff) - 1, 0);
         if (received_bytes > 0) {
             buff[received_bytes] = '\0';
@@ -70,7 +67,7 @@ void Server::Info_Sender(const int CL_sock, char *buff) {
         }
     }
     std::string Response;
-    Response += "HTTP/" + Version + " " + std::to_string(static_cast<int>(HttpStatusCode::Ok)) + "\n";
+    Response += "HTTP/" + Version + " 200\n";
     Response += "Content-Type: text/html\n";
     Response += "Content-Length: 173\n\n";
 

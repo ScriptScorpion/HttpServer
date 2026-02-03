@@ -4,6 +4,7 @@
 #include <string>
 #include <chrono>
 #include <iostream>
+#include <fstream>
 #include <thread>
 #define MAXPKGSIZE 4096
 
@@ -66,20 +67,22 @@ void Server::Info_Sender(const int CL_sock, char *buff) {
             break;
         }
     }
+    
+    std::ifstream File("/path/to/file.html", std::ios::ate);
+    if (!File) {
+        std::cerr << "File you provided don't exists" << std::endl;
+        close(CL_sock);
+        exit(1);
+    }
     std::string Response;
     Response += "HTTP/" + Version + " 200\n";
     Response += "Content-Type: text/html\n";
-    Response += "Content-Length: 173\n\n";
-
-    Response += "<!DOCTYPE html>\n";
-    Response += "<html lang=\"en\">\n";
-    Response += "<head>\n";
-    Response += "<meta charset=\"utf-8\">\n";
-    Response += "<title>local site</title>\n";
-    Response += "</head>\n";
-    Response += "<body>\n";
-    Response += "<h1 style=\"text-align:center;\">Hello Stranger!</h1>\n";
-    Response += "</body>\n";
-    Response += "</html>\n\n";
+    Response += "Content-Length: " + std::to_string(File.tellg()) + "\n\n";
+    File.seekg(0);
+    char ch;
+    while (File.get(ch)) {
+        Response += ch;
+    }
+    File.close();
     send(CL_sock, Response.c_str(), Response.size(), 0);
 }

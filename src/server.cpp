@@ -8,7 +8,7 @@
 #include <thread>
 #define MAXPKGSIZE 4096
 
-bool Server::Start(const int port) {
+bool Server::Start(const int &port) {
     char buff[MAXPKGSIZE] {};
     int SV_sock = socket(AF_INET, SOCK_STREAM, 0);
     int CL_sock;
@@ -43,7 +43,7 @@ bool Server::Start(const int port) {
         if (received_bytes > 0) {
             buff[received_bytes] = '\0';
             std::cout << buff << std::endl;
-            Info_Sender(CL_sock, buff);
+            Info_Sender(SV_sock, CL_sock, buff);
             memset(buff, 0, sizeof(buff));
             close(CL_sock);
         }
@@ -51,7 +51,7 @@ bool Server::Start(const int port) {
     close(SV_sock);
     return true;
 }
-void Server::Info_Sender(const int CL_sock, char *buff) {
+void Server::Info_Sender(const int &SV_sock, const int &CL_sock, char *buff) {
     std::string Version = "";
     for (int i = 0; i < 20; ++i) {
         if (buff[i] == '1' && buff[i + 1] == '.' && buff[i + 2] == '0') {
@@ -72,6 +72,7 @@ void Server::Info_Sender(const int CL_sock, char *buff) {
     if (!File) {
         std::cerr << "File you provided don't exists" << std::endl;
         close(CL_sock);
+        close(SV_sock);
         exit(1);
     }
     std::string Response;

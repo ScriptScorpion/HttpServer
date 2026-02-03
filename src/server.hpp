@@ -7,6 +7,6 @@ class Server {
      private:
          sockaddr_in Server_addr {};
      public:
-         bool Start(const int port);
-         void Info_Sender(const int CL_sock, char *buff);
+         bool Start(const int &port);
+         void Info_Sender(const int &SV_sock, const int &CL_sock, char *buff);
 };                     

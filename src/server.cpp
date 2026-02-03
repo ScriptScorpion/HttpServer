@@ -29,7 +29,7 @@ bool Server::Start(const int &port) {
         close(SV_sock);
         return false;
     }
-    if (listen(SV_sock, 2) > 0) {
+    if (listen(SV_sock, 1) > 0) {
         close(SV_sock);
         return false;
     }

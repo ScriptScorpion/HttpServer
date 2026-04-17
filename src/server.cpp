@@ -10,6 +10,7 @@
 
 bool Server::Start(const int &port) {
     char buff[MAXPKGSIZE] {};
+    memset(buff, '\0', sizeof(buff));
     int SV_sock = socket(AF_INET, SOCK_STREAM, 0);
     int CL_sock;
     const int opt = 1;

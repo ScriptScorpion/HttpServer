@@ -1,3 +1,6 @@
-# How compile
-* Enter project directory and run: `make`
+# Requirements:
+* g++
+* make
   
+# Installation:
+* Enter project directory and run: `make`

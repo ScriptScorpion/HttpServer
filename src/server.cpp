@@ -34,6 +34,9 @@ bool Server::Start(const int &port) {
         close(SV_sock);
         return false;
     }
+
+    std::cout << "\nStarted listening on this address http://127.0.0.1:" << port << "\n\n";
+    
     while (true) {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
         CL_sock = accept(SV_sock, nullptr, nullptr);

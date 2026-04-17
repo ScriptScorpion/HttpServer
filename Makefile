@@ -1,13 +1,6 @@
 CC := g++
-CC_FLAGS := -std=c++17 -O1
+CCF := -std=c++17 -O1
+SRC := src/main.cpp src/server.cpp
 TARGET := server
-SOURCE_FILES := src/main.cpp src/server.cpp
-
-OBJS := $(SOURCE_FILES:.cpp=.o)
-
-%.o : %.cpp
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-
-$TARGET: $(OBJS)
-	@$(CC) $(CC_FLAGS) $(OBJS) -o $(TARGET)
-	@rm -f $(OBJS)
+main:
+	@$(CC) $(CCF) $(SRC) -o $(TARGET)

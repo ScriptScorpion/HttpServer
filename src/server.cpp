@@ -43,7 +43,7 @@ bool Server::Start(const int &port) {
         if (received_bytes > 0) {
             buff[received_bytes] = '\0';
             std::cout << buff << std::endl;
-            Info_Sender(SV_sock, CL_sock, buff);
+            Info_Sender(CL_sock, buff);
             memset(buff, 0, sizeof(buff));
             close(CL_sock);
         }
@@ -51,23 +51,7 @@ bool Server::Start(const int &port) {
     close(SV_sock);
     return true;
 }
-void Server::Info_Sender(const int &SV_sock, const int &CL_sock, char *buff) {
-    std::string Version = "";
-    for (int i = 0; i < 20; ++i) {
-        if (buff[i] == '1' && buff[i + 1] == '.' && buff[i + 2] == '0') {
-            Version = "1.0";
-            break;
-        }
-        else if (buff[i] == '1' && buff[i + 1] == '.' && buff[i + 2] == '1') {
-            Version = "1.1";
-            break;
-        }
-        else if (buff[i] == '2' && buff[i + 1] == '.' && buff[i + 2] == '0') {
-            Version = "2.0";
-            break;
-        }
-    }
-    
+void Server::Info_Sender(const int &CL_sock, char *buff) {
     std::ifstream File("/path/to/file.html", std::ios::ate);
     if (!File) {
         std::cerr << "File you provided don't exists" << std::endl;
@@ -76,9 +60,9 @@ void Server::Info_Sender(const int &SV_sock, const int &CL_sock, char *buff) {
         exit(1);
     }
     std::string Response;
-    Response += "HTTP/" + Version + " 200\n";
-    Response += "Content-Type: text/html\n";
-    Response += "Content-Length: " + std::to_string(File.tellg()) + "\n\n";
+    Response += "HTTP/1.1 200 OK\r\n";
+    Response += "Content-Type: text/html\r\n";
+    Response += "Content-Length: " + std::to_string(File.tellg()) + "\r\n\r\n";
     File.seekg(0);
     char ch;
     while (File.get(ch)) {

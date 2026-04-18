@@ -7,6 +7,7 @@ int main() {
     std::cin >> port;
     if (!std::cin || port <= 1024 || port >= 65535) {
         std::cerr << "Error: Invalid input" << std::endl;
+        return 2;
     }
     if (!instance.Start(port)) {
         return 1;

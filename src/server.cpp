@@ -47,7 +47,7 @@ bool Server::Start(const int &port) {
         if (received_bytes > 0) {
             buff[received_bytes] = '\0';
             std::cout << buff << std::endl;
-            Info_Sender(CL_sock, buff);
+            Parse(CL_sock, buff);
             memset(buff, 0, sizeof(buff));
             close(CL_sock);
         }
@@ -55,7 +55,7 @@ bool Server::Start(const int &port) {
     close(SV_sock);
     return true;
 }
-void Server::Info_Sender(const int &CL_sock, char *buff) {
+void Server::Parse(const int &CL_sock, char *buff) {
     std::ifstream File("/path/to/file.html", std::ios::ate);
     if (!File) {
         std::cerr << "File you provided don't exists" << std::endl;

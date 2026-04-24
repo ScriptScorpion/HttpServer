@@ -7,5 +7,5 @@ class Server {
          sockaddr_in Server_addr {};
      public:
          bool Start(const int &port);
-         void Info_Sender(const int &CL_sock, char *buff);
+         void Parse(const int &CL_sock, char *buff);
 };                     

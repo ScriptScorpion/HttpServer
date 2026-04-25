@@ -46,7 +46,7 @@ bool Server::Start(const int &port) {
         int received_bytes = recv(CL_sock, buff, sizeof(buff) - 1, 0);
         if (received_bytes > 0) {
             buff[received_bytes] = '\0';
-            std::cout << buff << std::endl;
+            std::cout << "\n\n" << buff << "\n\n";
             Parse(CL_sock, buff);
             memset(buff, 0, sizeof(buff));
             close(CL_sock);

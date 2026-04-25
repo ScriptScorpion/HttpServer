@@ -22,7 +22,7 @@ bool Server::Start(const int &port) {
     Server_addr.sin_family = AF_INET;
     Server_addr.sin_addr.s_addr = INADDR_ANY;
     Server_addr.sin_port = htons(port);
-    if (setsockopt(SV_sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) { // setting that port can be used multiple time
+    if (setsockopt(SV_sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) { // setting an option that allows system to bind to an already used IP address
         close(SV_sock);
         return false;
     }
